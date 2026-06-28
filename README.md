@@ -26,19 +26,46 @@ O banco é composto por 7 tabelas:
 - Matrícula → Pagamento (1:N)
 - Aluno ↔ Turma (N:N, via Aluno_turma)
 
-O esquema conceitual (MER) está nos arquivos `esquema_conceitual.drawio` e `FBD.drawio.png`.
+## Diagramas
 
-## Arquivo do banco
+O projeto conta com dois diagramas, em níveis diferentes de abstração:
 
-- `academia_mysql.sql` — script completo: criação das tabelas, inserção de 50 registros por tabela e consultas de exemplo (SELECT, JOIN, GROUP BY, funções de agregação, matemáticas, de string e de data).
+### Esquema Conceitual (MER)
+
+Arquivos: `esquema_conceitual.drawio` / `esquema_conceitual.drawio.png`
+
+Representa o negócio no formato clássico de Modelo Entidade-Relacionamento: entidades (retângulos), relacionamentos nomeados como verbos (losangos) e atributos (bolinhas), sem se preocupar ainda com chaves ou tipos de dado de implementação.
+
+![Esquema Conceitual](esquema_conceitual.drawio.png)
+
+Relacionamentos representados:
+- **Instrutores** *Leciona* **Turmas** (1:N)
+- **Modalidades** *Classifica* **Turmas** (1:N)
+- **Alunos** *Participa* **Turmas** (N:N)
+- **Alunos** *Solicita* **Matrículas** (1:N)
+- **Matrículas** *Gera* **Pagamentos** (1:N)
+
+### Esquema Lógico / Relacional
+
+Arquivo: `FBD.drawio.png`
+
+Já é a tradução do modelo conceitual para tabelas: mostra cada entidade como uma tabela com suas colunas, tipos de dado (varchar, date, decimal, time), chave primária (PK) e chaves estrangeiras (FK), pronta para ser implementada no banco.
+
+![Esquema Lógico/Relacional](FBD.drawio.png)
+
+## Arquivos do projeto
+
+- **`Banco de Dados da academia.sql`** — script principal: criação do banco, das 7 tabelas e inserção de 50 registros por tabela.
+- **`Consultas.sql`** — consultas de exemplo (SELECT + WHERE, JOIN, GROUP BY/HAVING, funções de agregação, matemáticas, de string e de data/hora), já com os resultados de cada consulta.
 
 > Os dados (nomes, CPFs, telefones, datas) são fictícios, gerados apenas para fins de teste e demonstração do banco.
 
 ## Como executar
 
 1. Abra o **MySQL Workbench** e conecte na sua instância local.
-2. Vá em **File → Open SQL Script...** e selecione `academia_mysql.sql`.
-3. Clique no ícone de raio (⚡) para executar o script inteiro.
+2. Vá em **File → Open SQL Script...** e selecione **`Banco de Dados da academia.sql`**.
+3. Clique no ícone de raio (⚡) para executar o script inteiro. Ele cria o banco `academia` do zero (pode rodar mais de uma vez sem dar erro) e já popula todas as tabelas com 50 registros cada.
+4. Em seguida, abra **`Consultas.sql`** da mesma forma e execute para ver os exemplos de SELECT, JOIN, GROUP BY e funções (agregação, matemáticas, string e data/hora).
 
 ## Tecnologia
 
